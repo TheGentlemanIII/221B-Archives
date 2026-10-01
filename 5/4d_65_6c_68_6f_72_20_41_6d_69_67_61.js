@@ -6,7 +6,7 @@ document.getElementById("resposta").onclick = function() {
     .replace(/[\u0300-\u036f]/g, "");
 
 if (resposta == "enemy") {
-    window.location.href = "../6/IJVGY5DVNZQA====.html";
+    window.location.href = "../6/IJCVGVCPJZAQ====.html";
 }
    else
    {

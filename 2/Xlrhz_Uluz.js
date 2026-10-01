@@ -7,7 +7,7 @@ document.getElementById("resposta").onclick = function() {
     .replace(/[\u0300-\u036f]/g, "");
 
 if (resposta == "lupin") {
-    window.location.href = "../3/Wzeua.html";
+    window.location.href = "../3/WIEDL.html";
 }
    else
    {
