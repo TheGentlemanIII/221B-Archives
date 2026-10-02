@@ -1,0 +1,8 @@
+{
+  "name": "221b-archives",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/politica.test.mjs tests/verificar.test.mjs"
+  }
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#080808">
+    <meta name="apple-mobile-web-app-title" content="221B Archives">
+    <script src="/js/som.js" defer></script>
+    <title>221B Archives</title>
+
+    <style>
+        /* Janela (HUD) do Leia-me */
+        #hud {
+            position: fixed;
+            top: 0; right: 0; bottom: 0; left: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 1000;
+        }
+        #hud.aberto { display: flex; animation: hud-aparecer 0.2s ease-out; }
+
+        @keyframes hud-aparecer {
+            from { opacity: 0; transform: scale(0.97); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        #hud .hud-caixa {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px 30px 24px;
+            background: #0d0d0d;
+            border: 1px solid #7b2cbf;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(123, 44, 191, 0.25);
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            text-align: left;
+        }
+        #hud h2 {
+            margin: 0 0 16px;
+            padding-right: 40px;
+            font-size: 24px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+        #hud p { margin: 0 0 12px; }
+
+        /* O botão X precisa anular o estilo geral de "button" do style.css */
+        #hud #hud-fechar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: block;
+            width: 36px;
+            height: 36px;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 4px;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        #hud #hud-fechar:hover { background: #7b2cbf; color: white; }
+    </style>
+</head>
+<body>
+    <h1>221B Archives</h1>
+    <p>seja bem-vinda senhorita Lara, esse conjunto de enigma foi projetado unicamente para você. <br>
+        será que tem o necessário para chegar ao final?
+    </p>
+
+    <div id="but">
+        <button id="Começar">Iniciar</button>
+        <button id="read">Leia-me</button>
+    </div>
+
+    <!-- Janela (HUD) do Leia-me: escreva o texto do guia aqui dentro -->
+    <div id="hud">
+        <div class="hud-caixa" role="dialog" aria-modal="true" aria-labelledby="hud-titulo">
+            <button id="hud-fechar" type="button" aria-label="Fechar">✕</button>
+            <h2 id="hud-titulo">Guia prático</h2>
+            <p>Escreva aqui o texto do guia.</p>
+            <p>Você pode usar vários parágrafos.</p>
+        </div>
+    </div>
+
+    <script>
+        var hud = document.getElementById("hud");
+
+        function abrirHud()  { hud.classList.add("aberto"); }
+        function fecharHud() { hud.classList.remove("aberto"); }
+
+        // Iniciar: leva ao enigma atual (o servidor decide qual é)
+        document.getElementById("Começar").addEventListener("click", function () {
+            // pequena pausa para o barulho do botão terminar de tocar
+              if (window.irPara) window.irPara("/enigma");
+             else window.location.href = "/enigma";
+        });
+
+        // Leia-me: abre a janela
+        document.getElementById("read").addEventListener("click", abrirHud);
+
+        // Fechar: botão X, clique fora da caixa ou tecla Esc
+        document.getElementById("hud-fechar").addEventListener("click", fecharHud);
+        hud.addEventListener("click", function (e) { if (e.target === hud) fecharHud(); });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharHud(); });
+    </script>
+</body>
+</html>
